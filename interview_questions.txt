@@ -1,0 +1,179 @@
+Vertical scaling and Horizontal scaling
+	Vertical scaling model, the hardware configuration of the server is increased without altering the logical unit.
+	Horizontal scaling model, the number of instances is increased without increasing the hardware specifications.
+	
+Microservice design patterns
+How MS communicate with each other.
+	They communicate through the HTTP protocol, 
+		which allows them to interact with each other using standard HTTP methods like 'GET, POST, PUT, and DELETE'.
+	This 'RESTful API' communication ensures decoupled services and platform independence.
+	
+Diifference between REST and SOAP
+	REST	--	Representational State transfer
+	SOAP	--	Simple Object Access Protocol
+	
+	SOAP defines its own security where as REST inherits security from the underlying transport.
+	SOAP does not support error handling, but REST has built-in error handling
+	SOAP read and write request response messages in XML format.
+	REST can read and write request response messages in JSON/XML/Plain HTML.
+	SOAP run on transport protocol such as HTTP, FTP, SMTP, JMS, etc
+	REST run on HTTP protocol
+	
+What is Metaspace
+How LamdaExpression uses FI
+	used to provide the implementation of a functional interface.
+	
+What is Optional and its methods
+	Optional class representing optional values instead of null references.
+	Creates empty optional object
+		Optional<String> empty = Optional.empty();
+		
+	Optional object with the static method of()
+		Optional<String> opt = Optional.of(name);
+		The values passed thrrough cant be null otherwise it throws NullPointerException
+		
+	If we are expecting a null values
+		Optional<String> opt = Optional.ofNullable(name);
+		Here it doesnt throw NullPointerException instead creatd empty Optional obejct
+		
+	To ckech the value present in the Optional object.
+		Optional.of(string_name).isPresent() --> returns true
+		Optional.of(null).isPresent()		 --> return false as it will consider it as empty for null value
+		Optional.of(string_name).isEmpty()	 --> aslo works from Java 11
+		
+	Conditional actions using ifPresent()
+		Optional<String> opt = Optional.of("Hello");
+		opt.ifPresent(name -> System.out.println(name.length()));
+		
+	To return default when Optional obejct is empty using orElse() --> it takes value
+		Optional.ofNullable(null).orElse("john");
+		
+	To return default when Optional obejct is empty using orElseGet() --> it takes the Functional Interface
+		Optional.ofNullable(nullName).orElseGet(() -> "john");
+		
+		Optional.ofNullable(text).orElseGet(this::getMyDefault);
+		Optional.ofNullable(text).orElse(getMyDefault());
+		
+		when the wrapped value is not present, then both orElse() and orElseGet() work exactly the same way. like orElse() and orElseGet() will execute
+		when the wrapped value is present, orElseGet() wont be executed just like previous case.
+		but orElse() will get executed and it will create default object.
+		So in this case, we have just created one redundant object that is never used.
+		
+	To return an exception when wrapped value is not present
+		Optional.ofNullable(nullName).orElseThrow(IllegalArgumentException::new);
+		Optional.ofNullable(nullName).orElseThrow();
+		Java 10 introduced a simplified no-arg version of orElseThrow() method. 
+		In case of an empty Optional it throws a NoSuchElementException:
+		
+	Returning a value from Optional obejct
+		Optional.of("baeldung").get();
+		get() can only return a value if the wrapped object is not null; 
+		otherwise, it throws a no such element exception
+		
+	filter()
+		Optional<Integer> yearOptional = Optional.of(year);
+		yearOptional.filter(y -> y == 2016).isPresent();
+		
+		It takes a predicate as an argument and returns an Optional object.
+		If the wrapped value passes testing by the predicate, then the Optional is returned as-is
+		If the predicate returns false, then it will return an empty Optional.
+		
+		Optional.ofNullable(modem_object)
+		   .map(Modem::getPrice)
+		   .filter(p -> p >= 10)
+		   .filter(p -> p <= 15)
+		   .isPresent();
+		   
+	map()
+		List<String> companyNames = Arrays.asList("paypal", "oracle", "", "microsoft", "", "apple");
+		Optional<List<String>> listOptional = Optional.of(companyNames);		
+		int size = listOptional
+					  .map(List::size)
+					  .orElse(0);
+					  
+		The map method however takes the existing value, performs a computation using this value, 
+		and returns the result of the computation wrapped in an Optional object
+		
+		Optional<String> nameOptional = Optional.of(name);
+		int len = nameOptional
+					 .map(String::length)
+					 .orElse(0);
+		
+		We can chain map and filter together to do something more powerful
+		
+		Optional<String> passOpt = Optional.of(password);
+		correctPassword = passOpt
+							  .map(String::trim)
+							  .filter(pass -> pass.equals("password"))
+							  .isPresent();
+		
+	flatMap() -- flatMap() method as an alternative for transforming values.
+		The difference is that map transforms values only when they are unwrapped whereas 
+		flatMap takes a wrapped value and unwraps it before transforming it. (kind of revers of map())
+		
+		Person person = new Person("john", 26);
+		Optional<Person> personOptional = Optional.of(person);
+		String name = personOptional
+					  .flatMap(Person::getName) 		--> getName() actually returns Optional<String>
+					  .orElse("");
+					  
+		Optional<String> nameOptionalWrapper  
+					= personOptional.map(Person::getName);
+		
+	Chaining Optionals in Java 8
+		Optional<String> found = Stream.of(getEmpty(), getHello(), getBye())
+									  .filter(Optional::isPresent)
+									  .map(Optional::get)
+									  .findFirst();
+		
+		
+How to wrap object to Optional
+	Using .of() and .ofNullable() static methods of Optional class
+	
+Callable interface and Runnable Interface
+	The Runnable interface is used to create a simple thread
+	Callable interface is used to create a thread that returns a result. Result will be of Future object type
+	
+What is CompletabaleFuture.
+	CompletableFuture provides a powerful and flexible way to write asynchronous, non-blocking code in Java.
+	We can use it to compose multiple asynchronous operations, handle errors and exceptions, and combine multiple CompletableFutures into one.
+	By using CompletableFuture, we can write more efficient and scalable code that can take advantage of multi-core processors and handle complex asynchronous workflows.
+	
+Diifference TaskExecutor and ThreadSchedular
+	the scheduler determines when a job should be executed, 
+	while the executor is responsible for executing the job
+	
+	executor = An object that executes submitted Runnable tasks.
+	
+How to create custom exception
+	Create a new Java class that extends the Exception class to create checked exceptions
+			(or)
+	Create a new Java class that extends the RuntimeException class to create unchecked exceptions.
+	It should have at least one constructor to initialize the exception with an optional error message.
+	
+Types of exceptions
+	checked exceptions
+	unchecked exceptions
+	
+How to create custom checked exception
+	Create a new Java class that extends the Exception class to create checked exceptions
+	
+When to use LinkedList over ArrayList - reason
+Contigious memory
+	Consecutive blocks of memory allocated to user processes are called contiguous memory.
+	
+Fail-fast and Fail-safe iterations
+	Fail-safe iterators means they will not throw any exception even if the collection is modified while iterating over it.
+	Ex: CopyOnWriteArrayList, ConcurrentHashMap classes.
+	Fail-fast iterators throw an exception(ConcurrentModificationException) if the collection is modified while iterating over it.
+	Ex: ArrayList, HashMap collection classes.
+	
+	Fail Fast system is a system that shuts down immediately after an error is reported. All the operations will be aborted instantly in it.
+	Fail Safe is a system that continues to operate even after an error or fail has occurred. These systems do not abort the operations instantly; 
+	instead, they will try to hide the errors and will try to avoid failures as much as possible.
+	
+Hashing collision and how to prevent it.
+What is Swagger?
+	Swagger is widely used for producing the visual representation of RESTful Web Services. 
+	Using Swagger a consumer can understand and interact with the remote service with a minimal amount of implementation logic. 
+	Thus Swagger removes the guesswork in calling the service.
