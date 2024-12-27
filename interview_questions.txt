@@ -2,13 +2,8 @@ Vertical scaling and Horizontal scaling
 	Vertical scaling model, the hardware configuration of the server is increased without altering the logical unit.
 	Horizontal scaling model, the number of instances is increased without increasing the hardware specifications.
 	
-Microservice design patterns
-How MS communicate with each other.
-	They communicate through the HTTP protocol, 
-		which allows them to interact with each other using standard HTTP methods like 'GET, POST, PUT, and DELETE'.
-	This 'RESTful API' communication ensures decoupled services and platform independence.
 	
-Diifference between REST and SOAP
+Difference between REST and SOAP
 	REST	--	Representational State transfer
 	SOAP	--	Simple Object Access Protocol
 	
@@ -19,22 +14,19 @@ Diifference between REST and SOAP
 	SOAP run on transport protocol such as HTTP, FTP, SMTP, JMS, etc
 	REST run on HTTP protocol
 	
-What is Metaspace
-How LamdaExpression uses FI
-	used to provide the implementation of a functional interface.
-	
 What is Optional and its methods
+	Optional class is used to deal with NullPointerExpceptions.
 	Optional class representing optional values instead of null references.
 	Creates empty optional object
 		Optional<String> empty = Optional.empty();
 		
 	Optional object with the static method of()
 		Optional<String> opt = Optional.of(name);
-		The values passed thrrough cant be null otherwise it throws NullPointerException
+		The values passed through can't be null otherwise it throws NullPointerException
 		
 	If we are expecting a null values
 		Optional<String> opt = Optional.ofNullable(name);
-		Here it doesnt throw NullPointerException instead creatd empty Optional obejct
+		Here it doesn't throw NullPointerException instead created empty Optional object
 		
 	To check the value present in the Optional object.
 		Optional.of(string_name).isPresent() --> returns true
@@ -172,9 +164,3 @@ Fail-fast and Fail-safe iterations
 	Fail Safe is a system that continues to operate even after an error or fail has occurred. These systems do not abort the operations instantly; 
 	instead, they will try to hide the errors and will try to avoid failures as much as possible.
 	
-Hashing collision and how to prevent it.
-What is Swagger?
-	Swagger is widely used for producing the visual representation of RESTful Web Services. 
-	Using Swagger a consumer can understand and interact with the remote service with a minimal amount of implementation logic. 
-	Thus Swagger removes the guesswork in calling the service.
-What is 
