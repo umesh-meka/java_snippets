@@ -164,3 +164,19 @@ Fail-fast and Fail-safe iterations
 	Fail Safe is a system that continues to operate even after an error or fail has occurred. These systems do not abort the operations instantly; 
 	instead, they will try to hide the errors and will try to avoid failures as much as possible.
 	
+26. What is CompletableFuture?
+CompletableFuture is just an extension of the future object introduced in JDK5.
+In Java, CompletableFuture is used for asynchronous programming.
+Asynchronous programming is a method of writing non-blocking code by executing a task on a separate thread than the main application thread.
+And, notifies the main thread of its progress, completion, or failure.
+
+27. Why CompletableFuture why not Future?
+Future cannot be manually completed.
+Multiple Futures can't be chained together.
+We can't combine multiple Futures together.
+No exception handling.
+
+29. What is MetaSpace in Java 8?
+In Java 8, Metaspace stores class metadata in native memory, separate from the heap.
+It is used by the JVM to store metadata about loaded classes and methods.
+

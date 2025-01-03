@@ -2,12 +2,14 @@ package java8;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -219,7 +221,60 @@ public class J7_StreamsAPI {
         map.put(2, Arrays.asList("4", "5", "6"));
         
         map.values().stream().flatMap(x->x.stream()).forEach(System.out::println);
+        
+        String longString = "Write a program to return helleh the length of the longest word from a string whose length is even";
+        String[] splitStr = longString.split(" ");
+        Stream.of(splitStr).filter(x-> (x.length() % 2 == 0) ).forEach(System.out::println);
+        System.out.println("Longest String :::: "+ Stream.of(splitStr).filter(x-> (x.length() % 2 == 0)).collect(Collectors.maxBy(Comparator.comparing(String::length))).get());
 		
-	}
+        
+        System.out.println("Longest String :::: "+ Stream.of(splitStr)  // Create a stream from the words
+        .filter(word -> word.length() % 2 == 0)  // Filter words with even length
+        .mapToInt(String::length)  // Convert each word to its length
+        .max()  // Find the maximum length
+        .orElse(0));
+        
+        String str = "Hello";
+        str.chars().mapToObj(c -> (char)c).forEach(System.out::println);
+        System.out.println(str.chars().mapToObj(c -> (char)c).collect(Collectors.groupingBy(Function.identity(), Collectors.counting())));
 
+        Set<Character> seenCharacters = new HashSet<>();
+        String input1 = "Jv Articles are Awesome".replace(" ", "");
+        System.out.println(input1.chars()
+                .mapToObj(c -> (char) c)
+                .filter(c -> !seenCharacters.add(Character.toLowerCase(c)))
+                .findFirst()
+                .orElse(null));
+        
+        Set<Integer> setDuplicate = new HashSet<Integer>();
+        if(Stream.of(2, 3, 5, 4, 2).filter(x -> !setDuplicate.add(x)).count() == 0)
+        	System.out.println(false);
+        else
+        	System.out.println(true);
+        
+        System.out.println("Current Local Date: " + java.time.LocalDate.now());
+        //Used LocalDate API to get the date
+        System.out.println("Current Local Time: " + java.time.LocalTime.now());
+        //Used LocalTime API to get the time
+        System.out.println("Current Local Date and Time: " + java.time.LocalDateTime.now());
+        
+        List<String> listNames = Arrays.asList("AA", "BB", "AA", "CC", "BB");
+        System.out.println(listNames.stream().filter(x -> Collections.frequency(listNames, x) > 1)
+        .collect(Collectors.groupingBy(Function.identity(), Collectors.counting())));
+        
+        int[] aa = {2, 3, 4, 1};
+        System.out.println(Arrays.stream(aa).max().getAsInt());
+        System.out.println(Arrays.stream(aa).sum());
+        Stream.of(aa).forEach(System.out::println);
+        Stream.of(Arrays.asList(aa)).forEach(System.out::println);
+        
+        Integer[] aaa = new Integer[]{1, 2, 3};
+        Stream.of(aaa).forEach(System.out::println);
+        Stream.of(Arrays.asList(aaa)).forEach(System.out::println);
+        
+        String ss = "Hello";
+        char[] ca = ss.toCharArray();
+        ss.chars().mapToObj(x-> (char)x).forEach(System.out::println);
+        
+	}
 }
