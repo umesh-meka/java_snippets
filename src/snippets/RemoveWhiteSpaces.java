@@ -16,6 +16,8 @@ public class RemoveWhiteSpaces {
 		System.out.println(" After removing whitespaces : "+sb.toString());
 		
 		System.out.println(str.replaceAll("\\s", ""));
+		
+		str.chars().mapToObj(x-> (char)x).filter(x-> !Character.isWhitespace(x)).forEach(System.out::print);
 	}
 
 }

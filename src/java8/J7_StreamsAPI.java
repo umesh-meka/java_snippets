@@ -276,5 +276,7 @@ public class J7_StreamsAPI {
         char[] ca = ss.toCharArray();
         ss.chars().mapToObj(x-> (char)x).forEach(System.out::println);
         
+        
+        
 	}
 }
